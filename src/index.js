@@ -78,11 +78,22 @@ const render = () => {
     // })
 }
 
+const cleanKeyboard = () => {
+    // returns the keyboard keys to the default stylesheet styles
+    const buttons = document.getElementsByClassName('keyboard-button')
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].removeAttribute('disabled')
+        buttons[i].style.background = null
+        buttons[i].style.color = null
+    }
+}
+
 const startGame = async () => {
     const remainingGuessesInput = document.querySelector('#guesses-left').value
     const wordCountInput = document.querySelector('#word-count').value
     puzzleEl.textContent = 'Loading...'
     guessesEl.textContent = ''
+    cleanKeyboard()
     const puzzle = await getPuzzle(`${wordCountInput}`)
     word1 = new Hangman(puzzle, remainingGuessesInput)
     
